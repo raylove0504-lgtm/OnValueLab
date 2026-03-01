@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>온밸류랩 | ON VALUE LAB</title>
+    <!-- RSS Feed Discovery -->
+    <link rel="alternate" type="application/rss+xml" title="온밸류랩 RSS Feed" href="/rss.xml" />
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Noto+Sans+KR:wght@300;400;500;700&family=Playfair+Display:italic,wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --brand-charcoal: #1A1A1A;
+            /* 첨부 이미지의 슬로건 색상인 Deep Blue로 변경 */
+            --brand-primary: #34539A; 
+            --brand-primary-light: #E8EEFB;
+        }
+        body {
+            font-family: 'Noto Sans KR', 'Inter', sans-serif;
+            background-color: #F0F7FF;
+            color: var(--brand-charcoal);
+        }
+        .serif-tagline {
+            font-family: 'Playfair Display', serif;
+            font-style: italic;
+        }
+        .logo-line {
+            height: 1px;
+            background: linear-gradient(90deg, transparent, var(--brand-primary), transparent);
+            width: 100%;
+        }
+        .bg-brand-charcoal { background-color: var(--brand-charcoal); }
+        .text-brand-primary { color: var(--brand-primary); }
+        .border-brand-primary { border-color: var(--brand-primary); }
+        
+        /* Smooth scrolling */
+        html { scroll-behavior: smooth; }
+        
+        /* Custom scrollbar */
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: #f1f1f1; }
+        ::-webkit-scrollbar-thumb { background: var(--brand-primary); border-radius: 10px; }
+    </style>
+<script type="importmap">
+{
+  "imports": {
+    "react-dom/": "https://esm.sh/react-dom@^19.2.4/",
+    "react/": "https://esm.sh/react@^19.2.4/",
+    "react": "https://esm.sh/react@^19.2.4",
+    "react-router-dom": "https://esm.sh/react-router-dom@^7.13.0",
+    "lucide-react": "https://esm.sh/lucide-react@^0.564.0"
+  }
+}
+</script>
+<link rel="stylesheet" href="/index.css">
+</head>
+<body>
+    <div id="root"></div>
+<script type="module" src="/index.tsx"></script>
+</body>
+</html>
