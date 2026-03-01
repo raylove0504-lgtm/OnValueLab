@@ -4,59 +4,602 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>온밸류랩 | ON VALUE LAB</title>
-    <!-- RSS Feed Discovery -->
-    <link rel="alternate" type="application/rss+xml" title="온밸류랩 RSS Feed" href="/rss.xml" />
-    
     <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Noto+Sans+KR:wght@300;400;500;700&family=Playfair+Display:italic,wght@400;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;700;800&family=Noto+Sans+KR:wght@300;400;500;700;900&display=swap" rel="stylesheet">
     <style>
-        :root {
-            --brand-charcoal: #1A1A1A;
-            /* 첨부 이미지의 슬로건 색상인 Deep Blue로 변경 */
-            --brand-primary: #34539A; 
-            --brand-primary-light: #E8EEFB;
-        }
         body {
-            font-family: 'Noto Sans KR', 'Inter', sans-serif;
-            background-color: #F0F7FF;
-            color: var(--brand-charcoal);
+            font-family: 'Inter', 'Noto Sans KR', sans-serif;
+            scroll-behavior: smooth;
         }
         .serif-tagline {
-            font-family: 'Playfair Display', serif;
+            font-family: 'Georgia', serif;
             font-style: italic;
         }
-        .logo-line {
-            height: 1px;
-            background: linear-gradient(90deg, transparent, var(--brand-primary), transparent);
-            width: 100%;
+        .animate-fade-in {
+            animation: fadeIn 1s ease-out forwards;
         }
-        .bg-brand-charcoal { background-color: var(--brand-charcoal); }
-        .text-brand-primary { color: var(--brand-primary); }
-        .border-brand-primary { border-color: var(--brand-primary); }
-        
-        /* Smooth scrolling */
-        html { scroll-behavior: smooth; }
-        
-        /* Custom scrollbar */
-        ::-webkit-scrollbar { width: 8px; }
-        ::-webkit-scrollbar-track { background: #f1f1f1; }
-        ::-webkit-scrollbar-thumb { background: var(--brand-primary); border-radius: 10px; }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .hidden { display: none; }
     </style>
-<script type="importmap">
-{
-  "imports": {
-    "react-dom/": "https://esm.sh/react-dom@^19.2.4/",
-    "react/": "https://esm.sh/react@^19.2.4/",
-    "react": "https://esm.sh/react@^19.2.4",
-    "react-router-dom": "https://esm.sh/react-router-dom@^7.13.0",
-    "lucide-react": "https://esm.sh/lucide-react@^0.564.0"
-  }
-}
-</script>
-<link rel="stylesheet" href="/index.css">
 </head>
-<body>
-    <div id="root"></div>
-<script type="module" src="/index.tsx"></script>
+<body class="min-h-screen flex flex-col selection:bg-[#34539A]/20 selection:text-gray-900">
+
+    <!-- Navbar -->
+    <nav class="fixed w-full z-50 bg-white/95 backdrop-blur-md border-b border-gray-100 shadow-sm">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between h-24 items-center">
+                <div class="flex-shrink-0 flex flex-col items-center">
+                    <a href="#/" class="group flex flex-col items-center">
+                        <span class="text-xl font-bold tracking-[0.2em] text-gray-800 leading-none mb-1">온밸류랩</span>
+                        <span class="text-sm font-medium tracking-[0.1em] text-gray-800 leading-none serif-tagline" style="font-style: normal;">ON VALUE LAB</span>
+                        <div class="w-full h-[1px] bg-gray-200 my-1"></div>
+                        <span class="text-[9px] serif-tagline text-[#34539A] tracking-wider">Designing standards that create value</span>
+                    </a>
+                </div>
+                
+                <div class="hidden md:block">
+                    <div class="ml-10 flex items-center space-x-10">
+                        <a href="#/about" class="nav-link text-xs font-bold uppercase tracking-widest transition-colors hover:text-[#34539A] text-gray-500">About</a>
+                        <a href="#/services" class="nav-link text-xs font-bold uppercase tracking-widest transition-colors hover:text-[#34539A] text-gray-500">Solutions</a>
+                        <a href="#/references" class="nav-link text-xs font-bold uppercase tracking-widest transition-colors hover:text-[#34539A] text-gray-500">References</a>
+                        <a href="#/information" class="nav-link text-xs font-bold uppercase tracking-widest transition-colors hover:text-[#34539A] text-gray-500">Information</a>
+                        <a href="#/contact" class="nav-link text-xs font-bold uppercase tracking-widest transition-colors hover:text-[#34539A] text-gray-500">Contact</a>
+                    </div>
+                </div>
+
+                <div class="md:hidden flex items-center">
+                    <button id="mobile-menu-button" class="text-gray-800">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Mobile Menu -->
+        <div id="mobile-menu" class="hidden md:hidden bg-white border-b border-gray-100">
+            <div class="px-4 pt-2 pb-6 space-y-1">
+                <a href="#/about" class="block px-3 py-4 text-sm font-bold uppercase tracking-widest text-gray-700 hover:bg-gray-50 hover:text-[#34539A]">About</a>
+                <a href="#/services" class="block px-3 py-4 text-sm font-bold uppercase tracking-widest text-gray-700 hover:bg-gray-50 hover:text-[#34539A]">Solutions</a>
+                <a href="#/references" class="block px-3 py-4 text-sm font-bold uppercase tracking-widest text-gray-700 hover:bg-gray-50 hover:text-[#34539A]">References</a>
+                <a href="#/information" class="block px-3 py-4 text-sm font-bold uppercase tracking-widest text-gray-700 hover:bg-gray-50 hover:text-[#34539A]">Information</a>
+                <a href="#/contact" class="block px-3 py-4 text-sm font-bold uppercase tracking-widest text-gray-700 hover:bg-gray-50 hover:text-[#34539A]">Contact</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content Area -->
+    <div id="app-root" class="flex-1">
+        <!-- Content will be injected here by JS -->
+    </div>
+
+    <!-- Footer -->
+    <footer class="bg-white border-t border-gray-100 pt-32 pb-16">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex flex-col items-center text-center mb-20">
+                <div class="mb-8">
+                    <span class="text-2xl font-bold tracking-[0.2em] text-gray-800 leading-none">온밸류랩</span><br />
+                    <span class="text-sm font-medium tracking-[0.1em] text-gray-800 leading-none serif-tagline" style="font-style: normal;">ON VALUE LAB</span>
+                </div>
+                <p class="serif-tagline text-[#34539A] text-lg mb-8 italic">Designing standards that create value</p>
+                <div class="w-16 h-[1px] bg-gray-200"></div>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-12 text-center md:text-left mb-20">
+                <div>
+                    <h4 class="text-[10px] font-bold text-gray-900 uppercase tracking-widest mb-6">Contact</h4>
+                    <p class="text-xs text-gray-400 leading-relaxed font-light">
+                        010-3218-6695<br />ray54@naver.com
+                    </p>
+                </div>
+                <div>
+                    <h4 class="text-[10px] font-bold text-gray-900 uppercase tracking-widest mb-6">Menu</h4>
+                    <ul class="space-y-3 text-[10px] font-bold text-gray-300 uppercase tracking-widest">
+                        <li><a href="#/about" class="hover:text-gray-900">About</a></li>
+                        <li><a href="#/services" class="hover:text-gray-900">Solutions</a></li>
+                        <li><a href="#/references" class="hover:text-gray-900">References</a></li>
+                        <li><a href="#/information" class="hover:text-gray-900">Information</a></li>
+                        <li><a href="#/sitemap" class="hover:text-gray-900 flex items-center justify-center md:justify-start">Sitemap</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="text-[10px] font-bold text-gray-900 uppercase tracking-widest mb-6">Legal</h4>
+                    <div class="flex flex-col space-y-3 text-[10px] font-bold text-gray-300 uppercase tracking-widest">
+                        <a href="#/privacy" class="hover:text-gray-900">개인정보취급방침</a>
+                        <a href="/rss.xml" class="hover:text-gray-900">RSS Feed</a>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="flex flex-col md:flex-row justify-between items-center text-[9px] font-bold text-gray-300 uppercase tracking-[0.2em]">
+                <p>© 2026 ON VALUE LAB. ALL RIGHTS RESERVED.</p>
+                <div class="flex space-x-8 mt-4 md:mt-0">
+                    <a href="#/sitemap" class="hover:text-gray-900">Sitemap</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Templates & Scripts -->
+    <script>
+        // --- Data ---
+        const CONTENT = {
+            hero: { headline: "온밸류랩", subheadline: "Designing standards that create value" },
+            about: {
+                title: "ON VALUE LAB",
+                description: "온밸류랩은 사람과 조직의 의사결정을 진단하고, 단기 성과가 아닌 지속 가능한 판단 기준을 설계하는 전문 자문·컨설팅 브랜드입니다.",
+                philosophy: ["문제 해결보다 기준 설계", "실행 대행보다 판단 구조 정리", "단기 성과보다 지속 가능성"]
+            },
+            consultant: {
+                name: "Park Rae Woon",
+                title: "대표 컨설턴트",
+                profile: `기업의 본질적 가치 상승을 위한 HR, IT, 전략, ESG 등의 고도화를 전문으로 수행하고 있습니다.\n기준 설계 및 지속 가능성을 목표로 실행이 흔들리지 않게 만드는 기준의 설계를 위하여 노력합니다.\n사람과 조직의 선택이 지속 가능한 기준으로 남도록 돕겠습니다.`,
+                history: [
+                    "일터혁신상생 컨설턴트 (HR, 직무, 채용 外)",
+                    "공정채용 우수기관 인증 심사관 (한국경영인증원)",
+                    "조직문화 일생활균형 컨설턴트 (서울광역여성새로일하기센터)",
+                    "가족친화 경영 컨설턴트 (경기도경제과학진흥원)",
+                    "에코드롬 (PwC ESG 공식 협력사) ESG 파트너",
+                    "HRD 전문가, 직종전문가 (한국산업인력공단)",
+                    "과정평가형자격, 일학습병행제 산업현장전문가",
+                    "NCS 확인강사 (직업능력심사평가원): 인사·조직, 정보기술전략·계획, 물류무역",
+                    "HPS 경영컨설팅 HR·전략 컨설턴트",
+                    "정평경영컨설팅조합 전문위원",
+                    "경영기술지도사회 데이터융합·인공지능 사업단",
+                    "영림원소프트랩 ERP·PI 수석컨설턴트",
+                    "KCC 구매부, 회계부, 생산기술연구본부 SCM 근무"
+                ],
+                certifications: [
+                    "경영지도사 (인적자원)", "물류관리사, 직업상담사 (2급)", "창업보육전문매니저, 기술신용평가사",
+                    "데이터거래사, ERP 정보관리사 (1급)", "ESG 경영평가사, ESG 전문가(한경협)",
+                    "국가기술표준원 ESG 전문인력 수료", "ISO 9001, 14001, 45001 심사원", "Greenhouse Gas Practitioner (BSI)"
+                ]
+            },
+            services: [
+                {
+                    id: "s1", title: "HR (인사관리) 진단 & 컨설팅",
+                    description: "단순한 인력 관리를 넘어, 기업의 철학과 가치를 담은 인사 시스템을 설계합니다. 조직의 성장 단계에 맞춘 최적화된 HR 솔루션을 통해 구성원의 몰입과 성과를 이끌어냅니다.",
+                    details: [
+                        "인사 전략 및 가치체계 수립: 기업 미션·비전과 연계된 HR 전략 수립 및 핵심가치 내재화 프로세스 설계",
+                        "조직 진단 및 조직문화 고도화: 체계적인 진단 도구를 활용한 조직 현황 측정, 일생활균형 및 가족친화적 조직문화 고도화",
+                        "직무 분석 및 활용 방안 수립: NCS 등을 활용한 정밀 직무 분석, 직무 중심의 인사 운영 방안 구축",
+                        "평가 및 보상 체계 설계: 성과와 역량 중심의 공정한 평가 체계 수립/지표 개발 및 시장 경쟁력을 갖춘 보상 체계 수립",
+                        "채용프로세스 및 브랜딩 구축: 공정 채용 프로세스 구축, 면접관 역량 강화 교육, 우수 인재 확보를 위한 채용 브랜딩 전략",
+                        "중장년 재취업 지원 및 일자리 전환 지원: 재취업지원 컨설팅 및 일자리 전환 방안 수립"
+                    ]
+                },
+                {
+                    id: "s2", title: "IT 진단 & AI· ERP· PI· ISP 컨설팅",
+                    description: "비즈니스 효율 극대화를 위한 디지털 전환(DX)을 선도합니다. 현업 프로세스에 최적화된 시스템 설계로 실질적인 업무 혁신을 실현합니다.",
+                    details: [
+                        "IT 수준 진단 및 로드맵: 현재 IT 인프라 및 역량 세부 진단, 중장기 디지털 전환 전략 및 단계별 로드맵 수립",
+                        "ERP 및 시스템 최적화: 기업 규모와 특성에 맞는 최적의 ERP 선정, 프로세스 혁신(PI)을 통한 시스템 효율 극대화",
+                        "AI 및 신기술 도입 전략: AI를 통한 업무 자동화 및 의사결정 지원을 위한 실질적인 AI 활용 방안/ 데이터 거버넌스 수립",
+                        "ISP(정보전략계획): 비즈니스 목표 달성을 위한 통합 정보 시스템 구축 계획 및 기술 아키텍처 설계"
+                    ]
+                },
+                {
+                    id: "s3", title: "전략· BM· 사업계획 진단 & 컨설팅",
+                    description: "급변하는 시장 환경에서 지속 가능한 경쟁 우위를 확보하기 위한 비즈니스 모델을 재설계합니다. 체계적인 전략 수립으로 성장의 돌파구를 마련합니다.",
+                    details: [
+                        "비즈니스 모델(BM) 고도화: 기존 수익 구조 진단 및 시장 트렌드 분석을 통한 신규 비즈니스 모델 개발 및 검증",
+                        "경영 전략 수립: 외부 환경 분석 및 내부 역량 진단을 통한 전사적 성장 전략 및 실행 과제 도출",
+                        "사업계획 및 타당성 분석: 신규 사업 추진을 위한 정교한 사업계획서 작성, 시장성 및 경제성 타당성 검토",
+                        "실행 로드맵 및 성과 관리: 전략의 실행력을 높이는 세부 로드맵 수립 및 핵심 성과 지표(KPI) 연계 관리"
+                    ]
+                },
+                {
+                    id: "s4", title: "ESG 진단 & 컨설팅",
+                    description: "규제 대응을 넘어 기업의 본질적 가치를 높이는 ESG 경영 체계를 구축합니다. 실무 중심의 활동으로 이해관계자의 신뢰를 확보합니다.",
+                    details: [
+                        "ESG 경영 수준 진단: 글로벌 컴플라이언스 기반의 ESG 현황 진단, 주요 이슈 도출 및 리스크 평가",
+                        "ESG 전략 및 내재화: 기업 특성에 맞는 ESG 비전 수립, 전사적 실행 조직 구성 및 실무 프로세스 반영",
+                        "공급망 및 환경 관리: 공급망 ESG 실사 대응 체계 구축, 탄소 중립 및 환경 경영 시스템 도입 지원",
+                        "지속가능경영 보고: 이해관계자 소통을 위한 지속가능경영 보고서 발간 지원 및 공시 대응 전략 수립"
+                    ]
+                }
+            ],
+            references: [
+                { id: "r1", title: "공정채용 우수기관 심사", content: "공정채용 관련 제도 구축 및 실행 내역 점검 및 심사", target: "한국가스기술공사 外", period: "25.11 ~", agency: "한국경영인증원" },
+                { id: "r2", title: "채용프로세스 구축 및 직무분석 컨설팅", content: "채용 프로세스 진단 및 구축, 직무분석, 고용브랜딩, 면접관 교육 外", target: "㈜제이알에너지솔루션", period: "25.06 ~ 25.10", agency: "노무법인 서현 (중소벤처기업진흥공단 혁신바우처)" },
+                { id: "r3", title: "조직문화 더하기+ 컨설팅", content: "조직문화/일생활균형 진단, 개선사항 수립 및 관련 교육 外", target: "㈜트리빗, 풍림무약㈜, ㈜제일에스앤씨, ㈜브레인컨설팅", period: "25.04 ~ 25.08", agency: "서울광역여성새로일하기센터" },
+                { id: "r4", title: "경기 가족친화 경영 진단 컨설팅", content: "경기도 가족친화 인증 관련 지원, 기업 진단 및 실행방안 수립 外", target: "주식회사 다나, ㈜케이비엘러먼트", period: "25.04 ~ 25.06", agency: "경기도 경제과학진흥원" },
+                { id: "r5", title: "스타트업 BM/조직 진단/개선 컨설팅", content: "Business Model 및 조직 진단, 개선사항 수립 外", target: "㈜토마스톤", period: "24.10 ~ 24.11", agency: "한국기업기술가치평가협회" },
+                { id: "r6", title: "조직문화 진단/개선 컨설팅/교육", content: "조직문화/일생활균형 진단, 개선사항 수립 外", target: "㈜젠티", period: "24.09 ~ 24.11", agency: "서울광역여성새로일하기센터" },
+                { id: "r7", title: "공정채용 컨설팅", content: "채용 프로세스 정립 및 직무분석, 고용브랜딩 外", target: "㈜펩트론, ㈜누보, ㈜드림, 국제통신공업㈜, ㈜삼광랩트리", period: "23.05 ~ 24.09", agency: "엑스퍼트컨설팅 / 한국산업인력공단" },
+                { id: "r8", title: "재취업지원 컨설팅", content: "재취업 지원 제도 구축, 실행 및 HR 제도 진단 外", target: "경남개발공사, 교보생명보험㈜, 태진자산관리㈜", period: "23.05 ~ 24.11", agency: "엑스퍼트컨설팅, 한국경영인증원 / 노사발전재단" },
+                { id: "r9", title: "NCS/SQF 컨설팅", content: "NCS 및 SQF 직무 분석 및 구축, HR 실행 방안 (교육, 평가) 수립 外", target: "㈜업템포글로벌, 티앤에이치㈜, ㈜더블유에이아이", period: "23.03 ~ 24.06", agency: "한국SW산업협회 / 한국산업인력공단" },
+                { id: "r10", title: "노동(일자리) 전환 컨설팅", content: "Business Model 진단, 노동(일자리) 전환 및 HR 컨설팅 外", target: "선향양초", period: "22.07 ~ 22.09", agency: "시앤피컨설팅 / 중소벤처기업부" },
+                { id: "r11", title: "디지털 전환 컨설팅", content: "Business Model 진단, 디지털 전환 및 전략 수립 外", target: "㈜켐텍솔루션 , ㈜모던텍", period: "22.10 ~ 22.11", agency: "시앤피컨설팅 / 중소벤처기업부" },
+                { id: "r12", title: "재택/유연 근무 컨설팅", content: "재택(유연)근무 제도 설계, 실행 및 HR 컨설팅 外", target: "㈜데이터누리, ㈜파워플레이어", period: "22.06 ~ 22.09", agency: "시앤피컨설팅 / 고용노동부" },
+                { id: "r13", title: "전략 및 마케팅 실행 방안 수립 컨설팅", content: "Business Model 진단, 전략 및 마케팅 실행 방안 수립 外", target: "예당식품 外", period: "21.04 ~ 21.06", agency: "㈜아이티씨지 外" },
+                { id: "r14", title: "롯데인재개발원 ERP 구축 프로젝트", content: "ERP 구축 컨설팅 (인사급여 및 운영관리 데이터) 설계, 구축, 운영 / 데이터 정합성 검증, 분석 外", target: "롯데인재개발원", period: "19.09 ~ 20.05", agency: "㈜영림원소프트랩 / 롯데정보통신" },
+                { id: "r15", title: "공항철도 PI 및 ERP 구축 프로젝트", content: "PI 및 ERP 구축 컨설팅 (인사급여 및 운영 데이터) 설계, 구축, 운영 / 데이터 정합성 검증, 분석 外", target: "공항철도(주)", period: "19.02 ~ 19.08", agency: "㈜영림원소프트랩 / KCC정보통신" },
+                { id: "r16", title: "우리금융지주 ERP 구축 프로젝트", content: "ERP 구축 컨설팅 (회계, 인사, 운영관리 데이터) 설계, 구축, 운영 / 데이터 정합성 검증, 분석 外", target: "우리금융지주", period: "18.10 ~ 19.04", agency: "㈜영림원소프트랩 / 우리FIS" },
+                { id: "r17", title: "한국와이퍼 ERP 구축 프로젝트", content: "ERP 구축 컨설팅 (구매, 물류 및 FTA 데이터) 설계, 구축, 운영 / 데이터 정합성 검증, 분석 外", target: "한국와이퍼", period: "16.07 ~ 17.03", agency: "㈜영림원소프트랩" },
+                { id: "r18", title: "알톤스포츠 ERP 구축 프로젝트", content: "ERP 구축 컨설팅 (생산, 물류, 원가 등 데이터) 설계, 구축, 운영 / 데이터 정합성 검증, 분석", target: "알톤스포츠", period: "15.11 ~ 16.05", agency: "㈜영림원소프트랩" },
+                { id: "r19", title: "목포신항만 PI · ERP 구축 프로젝트", content: "PI (기업 세부 업무 분석 및 개선 방안 수립, 우선순위 및 실행 방안 수립) 및 ERP 프로세스 설계", target: "목포신항만운영(주)", period: "15.09 ~ 15.11", agency: "㈜영림원소프트랩 / 한라IT" }
+            ],
+            information: {
+                announcements: [
+                    { id: "a1", title: "일터혁신상생 컨설팅", link: "https://m.blog.naver.com/injcons/224194652093", date: "2026-02-28", description: "기업의 지속 가능한 성장을 위한 일터혁신 상생 컨설팅 안내입니다." },
+                    { id: "a2", title: "조직문화 더하기+ 컨설팅", link: "https://naver.me/FgHbcc5q", date: "2026-02-28", description: "서울광역여성새로일하기센터 주관 전액 무료 컨설팅: 취업규칙/복무지침 검토, 가족친화인증 지표 확인, 조직문화 교육 및 HRD 프로그램을 지원합니다." }
+                ]
+            }
+        };
+
+        // --- Router & View Engine ---
+        const root = document.getElementById('app-root');
+        const mobileMenu = document.getElementById('mobile-menu');
+        const mobileMenuBtn = document.getElementById('mobile-menu-button');
+
+        mobileMenuBtn.onclick = () => mobileMenu.classList.toggle('hidden');
+
+        function render() {
+            const hash = window.location.hash || '#/';
+            window.scrollTo(0, 0);
+            mobileMenu.classList.add('hidden');
+
+            // Update Nav Active State
+            document.querySelectorAll('.nav-link').forEach(link => {
+                if (link.getAttribute('href') === hash) {
+                    link.classList.add('text-[#34539A]');
+                    link.classList.remove('text-gray-500');
+                } else {
+                    link.classList.remove('text-[#34539A]');
+                    link.classList.add('text-gray-500');
+                }
+            });
+
+            if (hash === '#/' || hash === '') {
+                root.innerHTML = renderHome();
+            } else if (hash === '#/about') {
+                root.innerHTML = renderAbout();
+            } else if (hash === '#/services') {
+                root.innerHTML = renderServices();
+            } else if (hash === '#/references') {
+                root.innerHTML = renderReferences();
+            } else if (hash === '#/information') {
+                root.innerHTML = renderInformation();
+            } else if (hash === '#/contact') {
+                root.innerHTML = renderContact();
+            } else if (hash === '#/privacy') {
+                root.innerHTML = renderPrivacy();
+            } else if (hash === '#/sitemap') {
+                root.innerHTML = renderSitemap();
+            }
+        }
+
+        window.onhashchange = render;
+        window.onload = render;
+
+        // --- Page Renderers ---
+
+        function renderHome() {
+            return `
+                <main class="animate-fade-in">
+                    <!-- Hero -->
+                    <section class="pt-48 pb-32 bg-white relative overflow-hidden">
+                        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col items-center text-center">
+                            <div class="mb-12">
+                                <h1 class="text-6xl md:text-8xl font-extrabold tracking-tighter text-gray-900 mb-4">${CONTENT.hero.headline}</h1>
+                                <div class="w-48 h-[1px] bg-[#34539A] opacity-20 mx-auto mb-6"></div>
+                                <p class="text-xl md:text-2xl serif-tagline text-[#34539A] font-medium tracking-wide">${CONTENT.hero.subheadline}</p>
+                            </div>
+                            <p class="max-w-2xl text-lg text-gray-500 mb-12 leading-relaxed font-light">
+                                비즈니스의 가치를 증명하는 명확한 기준을 설계합니다.<br />
+                                사람과 기술, 그리고 전략이 만나는 지점에서 최적의 솔루션을 제공합니다.
+                            </p>
+                            <div class="flex flex-col sm:flex-row gap-6">
+                                <a href="#/references" class="px-12 py-4 border border-[#34539A] text-[#34539A] text-xs font-bold uppercase tracking-[0.2em] rounded-sm hover:bg-[#34539A] hover:text-white transition-all">View References</a>
+                            </div>
+                        </div>
+                    </section>
+
+                    <!-- Business Engineering -->
+                    <section class="py-32 bg-[#F0F7FF]">
+                        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                            <div class="text-center mb-24">
+                                <h2 class="text-xs font-bold text-[#34539A] uppercase tracking-[0.4em] mb-4">Core Solutions</h2>
+                                <h3 class="text-4xl font-bold text-gray-900">BUSINESS ENGINEERING</h3>
+                            </div>
+                            <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-8 mb-20">
+                                ${CONTENT.services.map(s => `
+                                    <div class="p-8 border border-gray-100 rounded-lg hover:border-[#34539A]/30 transition-all group bg-white hover:shadow-xl hover:shadow-gray-100/50 flex flex-col">
+                                        <div class="mb-6 text-[#34539A] group-hover:scale-110 transition-transform duration-500">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg>
+                                        </div>
+                                        <h4 class="text-base font-bold text-gray-900 mb-4">${s.title}</h4>
+                                        <p class="text-[13px] text-gray-500 font-light leading-relaxed flex-1">${s.description}</p>
+                                    </div>
+                                `).join('')}
+                            </div>
+                            <div class="flex justify-center">
+                                <a href="#/services" class="px-12 py-4 bg-[#34539A] text-white text-xs font-bold uppercase tracking-[0.2em] rounded-sm hover:bg-[#2E4A8D] transition-all flex items-center group">
+                                    Learn More <svg class="ml-3 group-hover:translate-x-1 transition-transform" xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+                                </a>
+                            </div>
+                        </div>
+                    </section>
+
+                    ${renderConsultantSnippet()}
+                    ${renderContactSnippet()}
+                </main>
+            `;
+        }
+
+        function renderAbout() {
+            return `
+                <main class="animate-fade-in">
+                    ${renderConsultantSnippet()}
+                    <section class="py-32 bg-white">
+                        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+                            <h2 class="text-xs font-bold text-[#34539A] uppercase tracking-[0.4em] mb-4">Philosophy</h2>
+                            <h3 class="text-4xl font-bold text-gray-900 mb-12">${CONTENT.about.title}</h3>
+                            <p class="max-w-3xl mx-auto text-lg text-gray-500 mb-16 font-light leading-relaxed">${CONTENT.about.description}</p>
+                            <div class="grid md:grid-cols-3 gap-8">
+                                ${CONTENT.about.philosophy.map(p => `
+                                    <div class="p-10 bg-[#FBFBFB] border border-gray-100 rounded-lg">
+                                        <p class="text-gray-900 font-bold tracking-tight">${p}</p>
+                                    </div>
+                                `).join('')}
+                            </div>
+                        </div>
+                    </section>
+                </main>
+            `;
+        }
+
+        function renderServices() {
+            return `
+                <main class="pt-48 pb-32 animate-fade-in bg-[#F0F7FF]">
+                    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                        <div class="mb-24 text-center">
+                            <h2 class="text-xs font-bold text-[#34539A] uppercase tracking-[0.4em] mb-4">Our Offering</h2>
+                            <h3 class="text-5xl font-extrabold text-gray-900">SOLUTIONS</h3>
+                            <p class="mt-6 text-gray-500 max-w-2xl mx-auto font-light leading-relaxed">
+                                HR, IT, 전략, ESG 등 기업 경영의 핵심 분야별 전문 진단 및 컨설팅 서비스를 제공합니다.
+                            </p>
+                        </div>
+                        <div class="grid lg:grid-cols-2 gap-12">
+                            ${CONTENT.services.map(s => `
+                                <div class="bg-white p-10 md:p-16 rounded-lg border border-gray-100 hover:shadow-2xl hover:shadow-gray-200/50 transition-all flex flex-col group relative overflow-hidden">
+                                    <div class="absolute top-0 right-0 w-32 h-32 bg-[#34539A]/5 rounded-bl-full -mr-16 -mt-16 group-hover:scale-150 transition-transform duration-700"></div>
+                                    <div class="flex items-center space-x-6 mb-10 relative z-10">
+                                        <div class="p-5 bg-[#FBFBFB] border border-gray-100 rounded-2xl text-[#34539A] group-hover:bg-[#34539A] group-hover:text-white transition-all duration-500 shadow-sm">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>
+                                        </div>
+                                        <h4 class="text-2xl md:text-3xl font-extrabold text-gray-900 tracking-tight">${s.title}</h4>
+                                    </div>
+                                    <p class="text-base text-gray-600 font-light leading-relaxed mb-12 pb-12 border-b border-gray-100 relative z-10">${s.description}</p>
+                                    <div class="space-y-8 flex-1 relative z-10">
+                                        ${s.details.map(d => {
+                                            const [title, items] = d.split(':');
+                                            return `
+                                                <div class="group/item">
+                                                    <div class="flex items-start">
+                                                        <div class="w-2.5 h-2.5 bg-[#34539A] rounded-full mt-2 mr-5 shrink-0 group-hover/item:scale-125 transition-transform"></div>
+                                                        <div>
+                                                            ${items ? `
+                                                                <p class="text-[14px] font-extrabold text-[#34539A] tracking-tight mb-1 opacity-100">${title}</p>
+                                                                <p class="text-[12px] text-gray-600 font-medium leading-relaxed tracking-tight">${items.trim()}</p>
+                                                            ` : `
+                                                                <p class="text-[14px] font-extrabold text-gray-900 leading-relaxed tracking-tight">${title}</p>
+                                                            `}
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            `;
+                                        }).join('')}
+                                    </div>
+                                </div>
+                            `).join('')}
+                        </div>
+                    </div>
+                </main>
+            `;
+        }
+
+        function renderReferences() {
+            return `
+                <main class="pt-48 pb-32 animate-fade-in bg-[#F0F7FF]">
+                    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                        <div class="mb-20 text-center">
+                            <h2 class="text-xs font-bold text-[#34539A] uppercase tracking-[0.4em] mb-4">Registry</h2>
+                            <h3 class="text-5xl font-extrabold text-gray-900 mb-8">REFERENCES</h3>
+                            <p class="text-gray-500 max-w-2xl mx-auto font-light leading-relaxed">온밸류랩의 가치 기준을 신뢰한 주요 클라이언트 및 수행 프로젝트 실적입니다.</p>
+                        </div>
+                        <div class="space-y-4">
+                            ${CONTENT.references.map(ref => `
+                                <div class="bg-white border-l-4 border-[#34539A] shadow-sm hover:shadow-md transition-all px-6 py-6 md:px-8 group">
+                                    <div class="flex flex-col md:flex-row justify-between md:items-start gap-3 mb-4">
+                                        <h4 class="text-lg md:text-xl font-extrabold text-gray-900 group-hover:text-[#34539A] transition-colors leading-tight">${ref.title}</h4>
+                                        <div class="flex items-center text-gray-400 text-[10px] font-bold tracking-widest shrink-0 bg-gray-50 px-3 py-1 rounded">
+                                            <svg class="mr-2" xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg> ${ref.period}
+                                        </div>
+                                    </div>
+                                    <div class="grid md:grid-cols-12 gap-6 items-start">
+                                        <div class="md:col-span-8">
+                                            <p class="text-[10px] font-bold text-[#34539A] uppercase tracking-widest mb-2">수행 내용</p>
+                                            <p class="text-xs text-gray-600 leading-relaxed font-medium">✓ ${ref.content}</p>
+                                        </div>
+                                        <div class="md:col-span-2 space-y-3 md:border-l border-gray-100 md:pl-6">
+                                            <p class="text-[9px] font-bold text-gray-400 uppercase tracking-widest flex items-center mb-1">대상 기관</p>
+                                            <p class="text-[11px] font-bold text-gray-800 leading-tight">${ref.target}</p>
+                                        </div>
+                                        <div class="md:col-span-2 space-y-3 md:border-l border-gray-100 md:pl-6">
+                                            <p class="text-[9px] font-bold text-gray-400 uppercase tracking-widest flex items-center mb-1">수행 기관</p>
+                                            <p class="text-[11px] font-bold text-gray-800 leading-tight">${ref.agency}</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            `).join('')}
+                        </div>
+                    </div>
+                </main>
+            `;
+        }
+
+        function renderInformation() {
+            return `
+                <main class="pt-48 pb-32 animate-fade-in bg-[#F0F7FF]">
+                    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                        <div class="mb-24 text-center">
+                            <h2 class="text-xs font-bold text-[#34539A] uppercase tracking-[0.4em] mb-4">Registry & Sharing</h2>
+                            <h3 class="text-5xl font-extrabold text-gray-900 mb-8">INFORMATION</h3>
+                            <p class="text-gray-500 max-w-2xl mx-auto font-light leading-relaxed">온밸류랩의 주요 공고 및 유용한 정보를 공유하는 공간입니다.</p>
+                        </div>
+                        <div class="max-w-4xl mx-auto">
+                            <div class="flex items-center space-x-4 mb-12 pb-4 border-b border-gray-100">
+                                <h4 class="text-2xl font-extrabold text-gray-900">주요 공고</h4>
+                            </div>
+                            <div class="space-y-6">
+                                ${CONTENT.information.announcements.map(item => `
+                                    <a href="${item.link}" target="_blank" class="block p-8 bg-[#FBFBFB] border border-gray-100 rounded-lg hover:border-[#34539A]/30 hover:shadow-xl hover:shadow-gray-100/50 transition-all group">
+                                        <div class="flex justify-between items-start mb-4">
+                                            <h5 class="text-lg font-bold text-gray-900 group-hover:text-[#34539A] transition-colors">${item.title}</h5>
+                                            <span class="text-[10px] font-bold text-gray-400 uppercase tracking-widest">${item.date}</span>
+                                        </div>
+                                        <p class="text-sm text-gray-500 font-light leading-relaxed mb-6">${item.description}</p>
+                                        <div class="flex items-center text-[10px] font-bold text-[#34539A] uppercase tracking-widest">
+                                            자세히 보기 <svg class="ml-2 group-hover:translate-x-1 transition-transform" xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+                                        </div>
+                                    </a>
+                                `).join('')}
+                            </div>
+                        </div>
+                    </div>
+                </main>
+            `;
+        }
+
+        function renderContact() {
+            return `
+                <main class="pt-48 animate-fade-in">
+                    ${renderContactSnippet()}
+                </main>
+            `;
+        }
+
+        function renderPrivacy() {
+            return `
+                <main class="pt-48 pb-32 bg-[#F0F7FF] animate-fade-in">
+                    <div class="max-w-4xl mx-auto px-6 sm:px-8">
+                        <h2 class="text-3xl font-bold text-gray-900 mb-12 pb-6 border-b border-gray-100">개인정보취급방침</h2>
+                        <div class="space-y-10 text-sm text-gray-600 leading-relaxed font-light">
+                            <p>온밸류랩(이하 '회사'라 함)은 고객의 개인정보를 중요시하며, 관련 법률을 준수합니다...</p>
+                            <!-- Full privacy text can be added here -->
+                            <p>개인정보관리책임자 성명 : 박래운<br>전화번호 : 010-3218-6695<br>이메일 : ray54@naver.com</p>
+                        </div>
+                    </div>
+                </main>
+            `;
+        }
+
+        function renderSitemap() {
+            const sections = [
+                { title: "About", links: [{ name: "컨설턴트 소개", path: "#/about" }] },
+                { title: "Solutions", links: [{ name: "HR 진단 & 컨설팅", path: "#/services" }] },
+                { title: "References", links: [{ name: "수행 프로젝트 실적", path: "#/references" }] },
+                { title: "Information", links: [{ name: "주요 공고", path: "#/information" }] },
+                { title: "Support", links: [{ name: "비즈니스 문의", path: "#/contact" }, { name: "개인정보취급방침", path: "#/privacy" }] }
+            ];
+            return `
+                <main class="pt-48 pb-32 bg-[#F0F7FF] animate-fade-in">
+                    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                        <div class="mb-24 text-center">
+                            <h2 class="text-xs font-bold text-[#34539A] uppercase tracking-[0.4em] mb-4">Structure</h2>
+                            <h3 class="text-5xl font-bold text-gray-900 mb-8">SITEMAP</h3>
+                        </div>
+                        <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-16">
+                            ${sections.map(s => `
+                                <div>
+                                    <h4 class="text-lg font-bold text-gray-900 border-b border-gray-100 pb-4 mb-6 flex items-center">
+                                        <span class="w-2 h-2 bg-[#34539A] rounded-full mr-3"></span>${s.title}
+                                    </h4>
+                                    <ul class="space-y-4">
+                                        ${s.links.map(l => `<li><a href="${l.path}" class="text-sm text-gray-500 hover:text-[#34539A] transition-colors">${l.name}</a></li>`).join('')}
+                                    </ul>
+                                </div>
+                            `).join('')}
+                        </div>
+                    </div>
+                </main>
+            `;
+        }
+
+        function renderConsultantSnippet() {
+            return `
+                <section class="py-32 bg-[#F0F7FF]">
+                    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                        <div class="grid lg:grid-cols-12 gap-16 items-start">
+                            <div class="lg:col-span-5 relative">
+                                <div class="aspect-[4/5] bg-gray-200 rounded-lg overflow-hidden grayscale">
+                                    <img src="https://picsum.photos/seed/parkraeun/800/1000" alt="${CONTENT.consultant.name}" class="w-full h-full object-cover" />
+                                </div>
+                                <div class="absolute -bottom-8 -right-8 bg-white p-8 shadow-xl border border-gray-100">
+                                    <h4 class="text-2xl font-extrabold text-gray-900 mb-1">${CONTENT.consultant.name}</h4>
+                                    <p class="text-[#34539A] text-sm font-bold uppercase tracking-wider">${CONTENT.consultant.title}</p>
+                                </div>
+                            </div>
+                            <div class="lg:col-span-7">
+                                <h2 class="text-xs font-bold text-[#34539A] uppercase tracking-[0.3em] mb-6">Expertise</h2>
+                                <h3 class="text-4xl font-extrabold text-gray-900 mb-8">가치를 만드는 기준의 설계자</h3>
+                                <p class="text-lg text-gray-600 leading-relaxed mb-12 italic font-light whitespace-pre-line">"${CONTENT.consultant.profile}"</p>
+                                <div class="grid md:grid-cols-2 gap-12">
+                                    <div>
+                                        <h4 class="text-sm font-bold text-gray-900 uppercase tracking-widest mb-6">Main Profiles</h4>
+                                        <ul class="space-y-4">
+                                            ${CONTENT.consultant.history.map(h => `<li class="flex items-start text-[13px] text-gray-500 leading-snug"><span class="w-1.5 h-1.5 bg-[#34539A] rounded-full mt-1.5 mr-3 shrink-0"></span>${h}</li>`).join('')}
+                                        </ul>
+                                    </div>
+                                    <div>
+                                        <h4 class="text-sm font-bold text-gray-900 uppercase tracking-widest mb-6">Qualifications</h4>
+                                        <div class="space-y-3">
+                                            ${CONTENT.consultant.certifications.map(c => `<div class="px-4 py-3 bg-white border border-gray-100 rounded-md text-xs font-medium text-gray-600">${c}</div>`).join('')}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            `;
+        }
+
+        function renderContactSnippet() {
+            return `
+                <section class="py-32 bg-[#F0F7FF]" id="contact">
+                    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                        <div class="flex flex-col items-center text-center">
+                            <div class="max-w-3xl">
+                                <h2 class="text-xs font-bold text-[#34539A] uppercase tracking-[0.4em] mb-6">Contact</h2>
+                                <h3 class="text-5xl font-bold text-gray-900 mb-8 leading-tight">가치의 기준을 함께<br />설계하겠습니다.</h3>
+                                <p class="text-lg text-gray-500 mb-16 font-light leading-relaxed">귀사의 현재를 진단하고 미래 성장을 위한 최적의 판단 기준을 수립합니다.</p>
+                                <div class="grid md:grid-cols-2 gap-12 justify-center items-center">
+                                    <div class="flex flex-col items-center group">
+                                        <div class="w-16 h-16 bg-[#FBFBFB] border border-gray-100 flex items-center justify-center rounded-full group-hover:border-[#34539A] transition-colors mb-6">
+                                            <svg class="text-[#34539A]" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
+                                        </div>
+                                        <p class="text-[10px] font-bold text-gray-400 uppercase tracking-widest mb-1">Email Address</p>
+                                        <p class="text-lg font-bold text-gray-800">ray54@naver.com</p>
+                                    </div>
+                                    <div class="flex flex-col items-center group">
+                                        <div class="w-16 h-16 bg-[#FBFBFB] border border-gray-100 flex items-center justify-center rounded-full group-hover:border-[#34539A] transition-colors mb-6">
+                                            <svg class="text-[#34539A]" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="7" width="20" height="14" rx="2" ry="2"></rect><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"></path></svg>
+                                        </div>
+                                        <p class="text-[10px] font-bold text-gray-400 uppercase tracking-widest mb-1">Mobile Contact</p>
+                                        <p class="text-lg font-bold text-gray-800">010-3218-6695</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            `;
+        }
+    </script>
 </body>
 </html>
